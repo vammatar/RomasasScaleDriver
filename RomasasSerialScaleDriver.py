@@ -25,7 +25,7 @@ ScaleProtocol = namedtuple('ScaleProtocol', SerialProtocol._fields + ('zeroComma
 # Romasas
 RomasasEquipmentProtocol = ScaleProtocol(
     name='Romasas Scales',
-    baudrate=00,
+    baudrate=4800,
     bytesize=serial.EIGHTBITS,
     stopbits=serial.STOPBITS_ONE,
     parity=serial.PARITY_NONE,
