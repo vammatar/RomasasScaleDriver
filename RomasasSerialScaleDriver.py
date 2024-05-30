@@ -25,12 +25,12 @@ ScaleProtocol = namedtuple('ScaleProtocol', SerialProtocol._fields + ('zeroComma
 # Romasas
 RomasasEquipmentProtocol = ScaleProtocol(
     name='Romasas Scales',
-    baudrate=9600,
+    baudrate=00,
     bytesize=serial.EIGHTBITS,
     stopbits=serial.STOPBITS_ONE,
     parity=serial.PARITY_NONE,
     timeout=0.2,
-    writeTimeout=0.2,
+    writeTimeout=0.5,
     measureRegexp=b"\s*([0-9.]+)kg",  # LABEL format 3 + KG in the scale settings, but Label 1/2 should work
     statusRegexp=None,
     commandTerminator=b"\r\n",
