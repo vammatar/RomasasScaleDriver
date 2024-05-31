@@ -36,12 +36,12 @@ RomasasEquipmentProtocol = ScaleProtocol(
     commandTerminator=b"\r\n",
     commandDelay=0.2,
     measureDelay=0.5, #legacy of Adam AZExtra driver
-    newMeasureDelay=0.2, #legacy of Adam AZExtra driver
+    newMeasureDelay=0.2, 
     measureCommand=b'R',
     zeroCommand=b'Z',
     tareCommand=b'T',
     clearCommand=None,  # No clear command -> Tare again
-    emptyAnswerValid=True,  # probabaly can be changed to False (needs testing) (AZExtra legacy)
+    emptyAnswerValid=False,  # probabaly can be changed to False (needs testing) (AZExtra legacy)
     autoResetWeight=True,  # probabaly can be changed to False (needs testing)  (AZExtra legacy)
 )
 
