@@ -41,8 +41,10 @@ RomasasEquipmentProtocol = ScaleProtocol(
     zeroCommand=b'Z',
     tareCommand=b'T',
     clearCommand=None,  # No clear command -> Tare again
-    emptyAnswerValid=True,  #True/False nothing changes using 'sudo screen', reverted back to True
-    autoResetWeight=False,  # probabaly can be changed to False (needs testing)  (AZExtra legacy)
+    emptyAnswerValid=True,  # True/False nothing changes using 'sudo screen', reverted back to True
+    autoResetWeight=True,   # True/False nothing changes using 'sudo screen', 
+                            # might False might have slighty improved stability on reconnect,
+                            # but only when sending commands very slowly, can be coinsidance 
 )
 
 class RomasasEquipmentDriver(ScaleDriver):
