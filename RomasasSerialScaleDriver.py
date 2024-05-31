@@ -21,8 +21,8 @@ new_weight_event = threading.Event()
 
 ScaleProtocol = namedtuple('ScaleProtocol', SerialProtocol._fields + ('zeroCommand', 'tareCommand', 'clearCommand', 'autoResetWeight'))
 
-
 # Romasas
+# Based on AdamEquipment driver
 RomasasEquipmentProtocol = ScaleProtocol(
     name='Romasas Scales',
     baudrate=4800,
@@ -35,24 +35,21 @@ RomasasEquipmentProtocol = ScaleProtocol(
     statusRegexp=None,
     commandTerminator=b"\r\n",
     commandDelay=0.2,
-    measureDelay=0.5,
-    # AZExtra beeps every time you ask for a weight that was previously returned!
-    # Adding an extra delay gives the operator a chance to remove the products
-    # before the scale starts beeping. Could not find a way to disable the beeps.
-    newMeasureDelay=5,
+    measureDelay=0.5, #legacy of Adam AZExtra driver
+    newMeasureDelay=1, #legacy of Adam AZExtra driver
     measureCommand=b'R',
     zeroCommand=b'Z',
     tareCommand=b'T',
     clearCommand=None,  # No clear command -> Tare again
-    emptyAnswerValid=True,  # AZExtra does not answer unless a new non-zero weight has been detected
-    autoResetWeight=True,  # AZExtra will not return 0 after removing products
+    emptyAnswerValid=True,  # probabaly can be changed to False (needs testing) (AZExtra legacy)
+    autoResetWeight=True,  # probabaly can be changed to False (needs testing)  (AZExtra legacy)
 )
 
 class RomasasEquipmentDriver(ScaleDriver):
-    """Driver for the Romasas Equipment serial scale."""
+    """Driver for the Romasas serial scale."""
 
     _protocol = RomasasEquipmentProtocol
-    priority = 12  #Default drivers are priority = 0
+    priority = 12   #Default drivers are priority = 0
 
     def __init__(self, identifier, device):
         super(RomasasEquipmentDriver, self).__init__(identifier, device)
@@ -60,7 +57,7 @@ class RomasasEquipmentDriver(ScaleDriver):
         self._last_weight_time = 0
         self.device_manufacturer = 'Romasas'
 
-    def _check_last_weight_time(self):
+    def _check_last_weight_time(self): #AdamEqupment legacy, needs testing if its needed for Romasas Scales
         """The ADAM doesn't make the difference between a value of 0 and "the same value as last time":
         in both cases it returns an empty string.
         With this, unless the weight changes, we give the user `TIME_WEIGHT_KEPT` seconds to log the new weight,
