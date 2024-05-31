@@ -52,7 +52,7 @@ class RomasasEquipmentDriver(ScaleDriver):
     """Driver for the Romasas Equipment serial scale."""
 
     _protocol = RomasasEquipmentProtocol
-    priority = 10  # Test the supported method of this driver last, after all other serial drivers
+    priority = 12  #Default drivers are priority = 0
 
     def __init__(self, identifier, device):
         super(RomasasEquipmentDriver, self).__init__(identifier, device)
