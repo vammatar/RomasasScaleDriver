@@ -59,7 +59,7 @@ class RomasasEquipmentDriver(ScaleDriver):
         self._last_weight_time = 0
         self.device_manufacturer = 'Romasas'
 
-    def _check_last_weight_time(self): #AdamEqupment legacy, needs testing if its needed for Romasas Scales
+    def _check_last_weight_time(self): #AdamEqupment legacy, needed for _take_measure function and is used in _scale_read_old_route
         """The ADAM doesn't make the difference between a value of 0 and "the same value as last time":
         in both cases it returns an empty string.
         With this, unless the weight changes, we give the user `TIME_WEIGHT_KEPT` seconds to log the new weight,
@@ -75,7 +75,7 @@ class RomasasEquipmentDriver(ScaleDriver):
         else:
             self._last_weight_time = time.time()
 
-    def _take_measure(self):
+    def _take_measure(self): # Overwrites SeialBaseDriver method for taking measurement
         """Reads the device's weight value, and pushes that value to the frontend."""
 
         if self._is_reading:
